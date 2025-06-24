@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav id="navbar">
+    <ul>
+        <li><a href="index.html">Profile</a></li>
+        <li><a href="">About me</a></li>
+        <li><a href="">Contact</a></li>
+        <a href=""></a>
+    </ul>
+    </nav>
+
+    <section id="Profile">
+        <img src="profileimage.jpg">
+
+        <div>
+        <h2>Hi!<br></h2>
+        <h3>I am Edriene!<br></h3>
+            <div id="intro">
+            <p class="type-line" data-text="Hello! I’m Edriene James A. Paingan, but feel free to call me EJ. I’m passionate about technology, creativity, and continuous learning. I’m currently pursuing a Bachelor of Science in Computer Science with a specialization in Software Technology (BSCS-ST). This program allows me to explore the world of programming, software development, and how technology can be used to solve real-world problems."></p>
+            </div>
+        </div>
+
+    </section>
+
+ <!-- Blog Section -->
+<div id="blog">
+    <div class="blogtemplate">
+        <h1>BLOG 1</h1>
+        <p>This is a sample blog content.</p>
+        <button class="removeBtn">Remove</button>
+    </div>
+</div>
+
+<!-- Input Section -->
+<div class="blog-input">
+    <input type="textTitle" id="blogTitleInput" placeholder="Enter blog title" />
+    <input type="textContent" id="blogContentInput" placeholder="Enter blog content" />
+    <button id="addBlogBtn">Add Blog</button>
+</div>
+
+<script>
+    
+    // FOR BLOG
+    //----------------------------------------------------
+    let blogCount = 1;
+
+    const blogContainer = document.getElementById('blog');
+
+    function addRemoveFunctionality(button) {
+        button.addEventListener('click', function () {
+            const blog = button.parentElement;
+            blog.remove();
+        });
+    }
+
+    document.getElementById('addBlogBtn').addEventListener('click', function () {
+        const titleInput = document.getElementById('blogTitleInput');
+        const contentInput = document.getElementById('blogContentInput');
+
+        const title = titleInput.value.trim() || `BLOG ${++blogCount}`;
+        const content = contentInput.value.trim() || "No content provided.";
+
+        const newBlog = document.createElement('div');
+        newBlog.className = 'blogtemplate';
+
+        newBlog.innerHTML = `
+            <h1>${title}</h1>
+            <p>${content}</p>
+            <button class="removeBtn">Remove</button>
+        `;
+
+        blogContainer.appendChild(newBlog);
+
+        addRemoveFunctionality(newBlog.querySelector('.removeBtn'));
+
+        titleInput.value = '';
+        contentInput.value = '';
+    });
+
+    // Initialize existing remove buttons
+    document.querySelectorAll('.removeBtn').forEach(addRemoveFunctionality);
+
+
+    // FOR TYPING ANIMATION
+    //----------------------------------------------------
+    const lines = document.querySelectorAll('.type-line');
+
+    let currentLine = 0;
+    let charIndex = 0;
+
+    function typeLine() {
+        if (currentLine >= lines.length) return;
+
+        const element = lines[currentLine];
+        const text = element.getAttribute('data-text');
+
+        element.textContent += text[charIndex];
+        charIndex++;
+
+        if (charIndex < text.length) {
+        setTimeout(typeLine, 25); // Typing speed
+        } else {
+        charIndex = 0;
+        currentLine++;
+        setTimeout(typeLine, 500); // Delay before next line starts
+        }
+    }
+
+    typeLine(); // Start typing
+</script>
+
+    <footer>
+        <p>&copy; Edriene James A. Paingan, All rights reserved.</p>
+    </footer>
+</body>
+</html>
